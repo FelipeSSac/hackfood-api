@@ -8,7 +8,7 @@ import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
 interface IUsersRepository {
   create(data: ICreateUserDTO): IUser;
   index(data: IPaginatedRequest): Promise<IPaginatedResponse<IUser>>;
-  findById(id: number): Promise<IUser | undefined>;
+  findById(id: string): Promise<IUser | undefined>;
   findByEmail(email: string): Promise<IUser | undefined>;
   save(user: IUser): Promise<IUser>;
   remove(user: IUser): Promise<void>;

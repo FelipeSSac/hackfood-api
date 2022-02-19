@@ -20,11 +20,13 @@ class UsersRepository implements IUsersRepository {
     id,
     name,
     email,
+    password,
   }: ICreateUserDTO): IUser {
     const user = this.ormRepository.create({
       id,
       name,
       email,
+      password,
     });
 
     return user;
@@ -48,7 +50,7 @@ class UsersRepository implements IUsersRepository {
     };
   }
 
-  public async findById(id: number): Promise<IUser | undefined> {
+  public async findById(id: string): Promise<IUser | undefined> {
     const user = this.ormRepository.findOne(id);
 
     return user;
