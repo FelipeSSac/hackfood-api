@@ -2,12 +2,23 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { instanceToInstance } from 'class-transformer';
 
+import { IndexProductsService } from '@modules/products/services/IndexProductsService';
 import { CreateProductService } from '@modules/products/services/CreateProductService';
 import { UpdateProductService } from '@modules/products/services/UpdateProductService';
-import { DeleteProductService } from '@modules/products/services/DeleteProductService';
 import { UpdateProductImageService } from '@modules/products/services/UpdateProductImageService';
+import { DeleteProductService } from '@modules/products/services/DeleteProductService';
 
 class ProductsControllers {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { id: userId } = request.body;
+
+    const indexProductsService = container.resolve(IndexProductsService);
+
+    const products = await indexProductsService.execute(userId);
+
+    return response.status(200).json(instanceToInstance(products));
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const { id: user_id } = request.user;
     const filename = request?.file?.filename;

@@ -24,7 +24,7 @@ class IndexProductsService {
       throw new AppError('Usuário não encontrado!', 404);
     }
 
-    const products = await this.productsRepository.findByUserId(userId);
+    const products = await this.productsRepository.findByUserId(user.id);
 
     if (products.length < 1) {
       throw new AppError('Nenhum produto encontrado!', 404);

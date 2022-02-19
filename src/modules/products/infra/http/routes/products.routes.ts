@@ -17,6 +17,11 @@ const upload = multer(uploadConfig.multer);
 
 productsRouter.use(ensureAuthenticated);
 
+productsRouter.get(
+  '/',
+  productsControllers.index,
+);
+
 productsRouter.post(
   '/',
   upload.single('image'),
