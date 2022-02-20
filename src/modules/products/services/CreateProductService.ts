@@ -5,6 +5,8 @@ import { AppError } from '@shared/errors/AppError';
 import { IIdGeneratorProvider } from '@shared/container/providers/IdGeneratorProvider/entities/IIdGeneratorProvider';
 import { IStorageProvider } from '@shared/container/providers/StorageProvider/entities/IStorageProvider';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
+import { ITranslatorProvider } from '@shared/container/providers/TranslatorProvider/entities/ITranslatorProvider';
+import { IFoodDataProvider } from '@shared/container/providers/FoodDataProvider/entities/IFoodDataProvider';
 import { IProductsRepository } from '../repositories/IProductsRepository';
 
 import { IProduct } from '../entities/IProduct';
@@ -12,7 +14,6 @@ import { IProduct } from '../entities/IProduct';
 interface IRequest {
   name: string;
   price: number;
-  has_lactose: boolean;
   description?: string | undefined;
   image?: string | undefined;
   user_id: string;
@@ -27,6 +28,12 @@ class CreateProductService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
+    @inject('TranslatorProvider')
+    private translatorProvider: ITranslatorProvider,
+
+    @inject('FoodDataProvider')
+    private foodDataProvider: IFoodDataProvider,
+
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
 
@@ -37,7 +44,6 @@ class CreateProductService {
   public async execute({
     name,
     price,
-    has_lactose,
     description,
     image,
     user_id,
@@ -52,10 +58,16 @@ class CreateProductService {
       id: this.idGeneratorProvider.generate(),
       name,
       price,
-      has_lactose,
+      lactose_free: false,
       description,
       user_id,
     });
+
+    const globalName = await this.translatorProvider.translateToEng(name);
+
+    const lactose_free = await this.foodDataProvider.lactoseFree(globalName);
+
+    Object.assign(product, { lactose_free: lactose_free || false });
 
     if (image) {
       const fileName = await this.storageProvider.saveFile(image);

@@ -2,7 +2,7 @@ interface ICreateProductDTO {
   id: string;
   name: string;
   price: number;
-  has_lactose: boolean;
+  lactose_free: boolean;
   description?: string | undefined;
   image?: string | undefined;
   user_id: string;

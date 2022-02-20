@@ -16,7 +16,7 @@ class ProductsRepository implements IProductsRepository {
   public create({
     name,
     price,
-    has_lactose,
+    lactose_free,
     description,
     image,
     user_id,
@@ -24,7 +24,7 @@ class ProductsRepository implements IProductsRepository {
     const product = this.ormRepository.create({
       name,
       price,
-      has_lactose,
+      lactose_free,
       description,
       image,
       user_id,

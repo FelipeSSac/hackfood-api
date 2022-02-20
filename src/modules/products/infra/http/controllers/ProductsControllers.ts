@@ -25,7 +25,6 @@ class ProductsControllers {
     const {
       name,
       price,
-      has_lactose,
       description,
     } = request.body;
 
@@ -34,7 +33,6 @@ class ProductsControllers {
     const product = await createProductService.execute({
       name,
       price,
-      has_lactose,
       description,
       image: filename,
       user_id,
