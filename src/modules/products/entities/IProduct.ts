@@ -5,7 +5,7 @@ interface IProduct {
 
   price: number;
 
-  has_lactose: boolean;
+  lactose_free: boolean;
 
   description?: string;
 

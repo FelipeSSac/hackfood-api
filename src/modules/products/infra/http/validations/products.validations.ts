@@ -4,7 +4,6 @@ export const create = celebrate({
   [Segments.BODY]: {
     name: Joi.string().required(),
     price: Joi.number().min(0).required(),
-    has_lactose: Joi.boolean().required(),
     description: Joi.string(),
   },
 });
@@ -16,7 +15,7 @@ export const update = celebrate({
   [Segments.BODY]: {
     name: Joi.string(),
     price: Joi.number().min(0),
-    has_lactose: Joi.boolean(),
+    lactose_free: Joi.boolean(),
     description: Joi.string(),
   },
 });

@@ -23,7 +23,7 @@ class Product implements IProduct {
     price: number;
 
   @Column('boolean')
-    has_lactose: boolean;
+    lactose_free: boolean;
 
   @Column({
     type: 'varchar',
