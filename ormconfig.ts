@@ -2,6 +2,7 @@ const path = process.env.NODE_ENV === 'dev' ? 'src' : 'dist';
 
 module.exports = {
   type: 'postgres',
+  url: process.env.DATABASE_URL,
   host: process.env.PG_HOST,
   port: process.env.PG_PORT,
   username: process.env.PG_USER,
